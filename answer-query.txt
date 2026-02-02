@@ -1,0 +1,23 @@
+i
+SELECT Department, SUM(Salary) AS Total_Salary
+FROM Doctor D, D_Dept DD
+WHERE D.D_Id = DD.D_Id
+GROUP BY Department;
+
+ii
+UPDATE D_Dept
+SET Charges = Charges * 1.10
+WHERE Department = 'Neurology';
+
+iii
+SELECT *
+FROM Doctor
+ORDER BY Age DESC;
+
+iv
+SELECT D.*
+FROM Doctor D, D_Dept DD
+WHERE D.D_Id = DD.D_Id
+AND Gender = 'M'
+AND Age BETWEEN 40 AND 50
+AND OPD_Days = 'MWF';

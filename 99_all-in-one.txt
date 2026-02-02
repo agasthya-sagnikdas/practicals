@@ -1,0 +1,106 @@
+Q1
+
+import csv
+def search_book():
+    #openingCSV file for reading
+    csvfile = open('newbook.csv','r',newline='')
+    #reading the CSV contenet in object
+    csvobj = csv.reader(csvfile)  
+    n=input("Enter the book number to be searched :")
+    #flag variable
+    found = False
+    #extracting line by line content
+    for l in csvobj:
+        if l[0] == n:
+            print('Record found')
+            print(l)
+            found = True
+            break
+    if not found:
+        print("Record not found")
+    #closing a CSV file
+    csvfile.close()
+
+#function calling statement
+search_book()
+
+
+
+Q2
+
+#######<STEP 1: Create Database>
+CREATE DATABASE HospitalDB;
+USE HospitalDB;
+
+
+#######<STEP 2: Create Doctor Table>
+CREATE TABLE Doctor (
+    D_Id VARCHAR(5),
+    DName VARCHAR(30),
+    Gender CHAR(1),
+    Age INT,
+    Mobile BIGINT,
+    Salary INT
+);
+
+
+#######<STEP 3: Create D_Dept Table>
+CREATE TABLE D_Dept (
+    D_Id VARCHAR(5),
+    Department VARCHAR(20),
+    Charges INT,
+    OPD_Days VARCHAR(5)
+);
+
+
+#######<STEP 4: Insert Data into Doctor Table>
+INSERT INTO Doctor VALUES
+('D123', 'Swati Garg', 'F', 35, 9873214561, 85000),
+('D234', 'Anirudh', 'M', 40, 9874563210, 91000),
+('D456', 'Rupinde Kaur', 'F', 32, 9632587413, 95850),
+('D656', 'Shailender Gupta', 'M', 42, 9102365471, 98750),
+('D234', 'Yashika Lamba', 'F', 39, 9899552220, 75300),
+('D334', 'Deepak', 'M', 45, 9988774452, 85400);
+
+
+#######<STEP 5: Insert Data into D_Dept Table>
+INSERT INTO D_Dept VALUES
+('D123', 'Gynaecology', 700, 'MWF'),
+('D234', 'Cardiology', 850, 'MWF'),
+('D456', 'Gynaecology', 700, 'TTS'),
+('D656', 'Cardiology', 850, 'MWF'),
+('D234', 'ENT', 900, 'TTS'),
+('D334', 'Neurology', 950, 'TTS');
+
+
+#######<STEP 6: Verify Data (Very Important)>
+SELECT * FROM Doctor;
+SELECT * FROM D_Dept;
+
+
+
+
+
+i
+SELECT Department, SUM(Salary) AS Total_Salary
+FROM Doctor D, D_Dept DD
+WHERE D.D_Id = DD.D_Id
+GROUP BY Department;
+
+ii
+UPDATE D_Dept
+SET Charges = Charges * 1.10
+WHERE Department = 'Neurology';
+
+iii
+SELECT *
+FROM Doctor
+ORDER BY Age DESC;
+
+iv
+SELECT D.*
+FROM Doctor D, D_Dept DD
+WHERE D.D_Id = DD.D_Id
+AND Gender = 'M'
+AND Age BETWEEN 40 AND 50
+AND OPD_Days = 'MWF';
